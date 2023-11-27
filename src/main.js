@@ -1,3 +1,3 @@
 import './styles/style.css'
 
-console.log('Hello this works!')
+console.log('Nube Env Connected!')
