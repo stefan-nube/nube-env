@@ -12,6 +12,9 @@
     "browser": true,
     "jquery": true
   },
+  "globals": {
+    "gsap": "readonly"
+  },
   "extends": ["eslint:recommended", "plugin:prettier/recommended"],
   "plugins": ["import", "sort-imports-es6-autofix"],
   "rules": {
