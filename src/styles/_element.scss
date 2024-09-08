@@ -1,0 +1,85 @@
+@use 'sass:math';
+@use 'variables' as v;
+
+$properties: (
+  'display': (
+    'prefix': 'ed',
+    'values': (
+      '0': none,
+      '1': block,
+      '2': flex,
+      '3': grid,
+      '4': inline-block,
+      '5': inline,
+      '6': inline-flex,
+    ),
+  ),
+  'position': (
+    'prefix': 'ep',
+    'values': (
+      '0': static,
+      '1': relative,
+      '2': absolute,
+      '3': fixed,
+      '4': sticky,
+    ),
+  ),
+  'overflow': (
+    'prefix': 'of',
+    'values': (
+      '0': visible,
+      '1': scroll,
+      '2': auto,
+      '3': hidden,
+    ),
+  ),
+  'overflow-x': (
+    'prefix': 'ox',
+    'values': (
+      '0': visible,
+      '1': scroll,
+      '2': auto,
+      '3': hidden,
+    ),
+  ),
+  'overflow-y': (
+    'prefix': 'oy',
+    'values': (
+      '0': visible,
+      '1': scroll,
+      '2': auto,
+      '3': hidden,
+    ),
+  ),
+);
+
+// Responsive Classes Mixin
+@mixin responsive($breakpoint-prefix: 'xs') {
+  @each $property, $map in $properties {
+    $prefix: map-get($map, 'prefix');
+    $values: map-get($map, 'values');
+
+    // Generate property-value classes
+    @each $k, $v in $values {
+      [class*='#{$breakpoint-prefix}_#{$prefix}#{$k}'] {
+        #{$property}: $v;
+      }
+    }
+  }
+}
+
+// Base classes
+@include responsive('xs');
+
+// Responsive classes
+@media (min-width: map-get(v.$breakpoints, 'm')) {
+  @include responsive('sm');
+}
+
+@media (min-width: map-get(v.$breakpoints, 'ml')) {
+  @include responsive('md');
+}
+
+@media (min-width: map-get(v.$breakpoints, 't')) {
+  @include responsive('lg');
+}

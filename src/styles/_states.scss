@@ -1,0 +1,68 @@
+@use 'variables' as v;
+
+@each $key, $val in v.$colors {
+  [class*='bg-h#{$key}']:hover {
+    background: $val;
+  }
+  [class*='bc-h#{$key}']:hover {
+    border-color: $val;
+  }
+  [class*='oc-h#{$key}']:hover {
+    outline-color: $val;
+  }
+  [class*='fc-h#{$key}']:hover {
+    color: $val;
+  }
+  [class*='sc-h#{$key}']:hover {
+    -webkit-text-stroke-color: $val;
+  }
+}
+
+@each $key, $val in v.$colors {
+  [class*='bg-a#{$key}']:active {
+    background: $val;
+  }
+  [class*='bc-a#{$key}']:active {
+    border-color: $val;
+  }
+  [class*='oc-a#{$key}']:active {
+    outline-color: $val;
+  }
+  [class*='fc-a#{$key}']:active {
+    color: $val;
+  }
+  [class*='sc-a#{$key}']:active {
+    -webkit-text-stroke-color: $val;
+  }
+}
+
+@each $key, $val in v.$colors {
+  [class*='bg-f#{$key}']:focus {
+    background: $val;
+  }
+  [class*='bc-f#{$key}']:focus {
+    border-color: $val;
+  }
+  [class*='oc-f#{$key}']:focus {
+    outline-color: $val;
+  }
+  [class*='fc-f#{$key}']:focus {
+    color: $val;
+  }
+  [class*='sc-f#{$key}']:focus {
+    -webkit-text-stroke-color: $val;
+  }
+}
+
+$durations: 50, 100, 150, 200, 250, 300, 350, 400, 450, 500;
+
+@mixin generate-transitions {
+  @each $duration in $durations {
+    [class*='ht#{$duration}'] {
+      transition-property: all;
+      transition-duration: #{$duration}ms;
+    }
+  }
+}
+
+@include generate-transitions;

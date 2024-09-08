@@ -1,0 +1,82 @@
+@use 'variables' as v;
+
+$ui-common: (
+  'flex-direction': (
+    'prefix': 'fd',
+    'values': (
+      '0': column,
+      '1': row,
+      '2': column-reverse,
+      '3': row-reverse,
+    ),
+  ),
+  'justify-content': (
+    'prefix': 'fj',
+    'values': (
+      '0': start,
+      '1': center,
+      '2': end,
+      '3': space-between,
+      '4': space-around,
+    ),
+  ),
+  'align-items': (
+    'prefix': 'fa',
+    'values': (
+      '0': start,
+      '1': center,
+      '2': end,
+      '3': stretch,
+      '4': baseline,
+    ),
+  ),
+  'flex-wrap': (
+    'prefix': 'fw',
+    'values': (
+      '0': nowrap,
+      '1': wrap,
+      '2': wrap-reverse,
+    ),
+  ),
+  'align-content': (
+    'prefix': 'fac',
+    'values': (
+      '0': flex-start,
+      '1': center,
+      '2': flex-end,
+      '3': stretch,
+      '4': space-between,
+      '5': space-around,
+    ),
+  ),
+);
+
+@mixin generate-flex-utilities($breakpoint: '') {
+  @each $property, $map in $ui-common {
+    $prefix: map-get($map, 'prefix');
+    $values: map-get($map, 'values');
+
+    @each $k, $v in $values {
+      [class*='#{$breakpoint}_#{$prefix}#{$k}'] {
+        #{$property}: $v;
+        display: flex;
+      }
+    }
+  }
+}
+
+// Generate base utility classes
+@include generate-flex-utilities('xs');
+
+// Generate responsive utility classes
+@media (min-width: map-get(v.$breakpoints, 'm')) {
+  @include generate-flex-utilities('sm');
+}
+
+@media (min-width: map-get(v.$breakpoints, 'ml')) {
+  @include generate-flex-utilities('md');
+}
+
+@media (min-width: map-get(v.$breakpoints, 't')) {
+  @include generate-flex-utilities('lg');
+}

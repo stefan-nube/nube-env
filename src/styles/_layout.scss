@@ -1,0 +1,214 @@
+@use 'variables' as v;
+
+:root {
+  --container: var(--grid--container);
+  --clm-gutter: var(--grid--clm-gutter);
+  --grid-gap: var(--grid--row-gap);
+  --grid-margin: var(--grid--margin);
+}
+
+.cnt {
+  width: 100%;
+  max-width: var(--grid--container);
+  padding-inline: var(--clm-gutter);
+}
+
+// [class*="rw"] {
+//   display: flex;
+//   flex-wrap: wrap;
+//   margin-right: calc(-1 * var(--clm-gutter));
+//   margin-left: calc(-1 * var(--clm-gutter));
+//   grid-row-gap: var(--grid-gap);
+// }
+
+.cnt:has([class*='clm']) {
+  display: flex;
+  flex-wrap: wrap;
+  grid-row-gap: var(--grid--row-gap);
+  padding-inline: 0;
+}
+
+section:has(.cnt) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-inline: calc(var(--grid--margin) - var(--grid--clm-gutter));
+}
+
+[class*='clm'] {
+  padding-right: var(--clm-gutter);
+  padding-left: var(--clm-gutter);
+  flex-basis: 100%;
+  flex-grow: 1;
+  max-width: 100%;
+}
+
+// [class*="rw-x"] > [class*="clm"] {
+//   padding-right: var(--clm-gutter);
+//   padding-left: var(--clm-gutter);
+//   flex-basis: auto;
+//   flex-grow: 1;
+//   max-width: 100%;
+// }
+
+$columns: (
+  'flex-basis': (
+    'values': (
+      '1': 8.33%,
+      '2': 16.666%,
+      '3': 25%,
+      '4': 33.333%,
+      '5': 41.666%,
+      '6': 50%,
+      '7': 58.333%,
+      '8': 66.666%,
+      '9': 75%,
+      '10': 83.3333%,
+      '11': 91.67%,
+      '12': 100%,
+    ),
+  ),
+);
+
+@each $property, $map in $columns {
+  $values: map-get($map, 'values');
+
+  @each $k, $v in $values {
+    [class*='clm'][class*='xs_#{$k}'] {
+      #{$property}: $v;
+      max-width: $v;
+      flex-grow: 1;
+      flex-shrink: 1;
+    }
+  }
+}
+
+// generate landscape columns
+@media (min-width: #{map-get(v.$breakpoints, "m")}) {
+  @each $property, $map in $columns {
+    $values: map-get($map, 'values');
+
+    @each $k, $v in $values {
+      [class*='clm'][class*='sm_#{$k}'] {
+        #{$property}: $v;
+        max-width: $v;
+        flex-grow: 1;
+        flex-shrink: 1;
+      }
+    }
+  }
+}
+
+// generate tablet columns
+@media (min-width: #{map-get(v.$breakpoints, "ml")}) {
+  @each $property, $map in $columns {
+    $values: map-get($map, 'values');
+
+    @each $k, $v in $values {
+      [class*='clm'][class*='md_#{$k}'] {
+        #{$property}: $v;
+        max-width: $v;
+        flex-grow: 1;
+        flex-shrink: 1;
+      }
+    }
+  }
+}
+
+// generate desktop columns
+@media (min-width: #{map-get(v.$breakpoints, "t")}) {
+  @each $property, $map in $columns {
+    $values: map-get($map, 'values');
+
+    @each $k, $v in $values {
+      [class*='clm'][class*='lg_#{$k}'] {
+        #{$property}: $v;
+        max-width: $v;
+        flex-grow: 1;
+        flex-shrink: 1;
+      }
+    }
+  }
+}
+
+$h-values: (
+  '0': calc(var(--size--0) / 2),
+  '1': calc(var(--size--1) / 2),
+  '2': calc(var(--size--2) / 2),
+  '3': calc(var(--size--3) / 2),
+  '4': calc(var(--size--4) / 2),
+  '5': calc(var(--size--5) / 2),
+  '6': calc(var(--size--6) / 2),
+  '7': calc(var(--size--7) / 2),
+  '8': calc(var(--size--8) / 2),
+  '9': calc(var(--size--9) / 2),
+  '10': calc(var(--size--10) / 2),
+);
+
+$v-values: (
+  '0': var(--size--0),
+  '1': var(--size--1),
+  '2': var(--size--2),
+  '3': var(--size--3),
+  '4': var(--size--4),
+  '5': var(--size--5),
+  '6': var(--size--6),
+  '7': var(--size--7),
+  '8': var(--size--8),
+  '9': var(--size--9),
+  '10': var(--size--10),
+);
+
+$grid-gutter: (
+  '--clm-gutter': 'hg',
+);
+
+$row-gap: (
+  '--grid-gap': 'vg',
+);
+
+@mixin generate-values($propertyMap, $values) {
+  @each $property, $suffix in $propertyMap {
+    @each $k, $v in $values {
+      [class*='rw'][class*='#{$suffix}#{$k}'] {
+        #{$property}: $v;
+      }
+    }
+  }
+}
+
+@include generate-values($grid-gutter, $h-values);
+@include generate-values($row-gap, $v-values);
+
+$columns-max: (
+  'flex-basis': (
+    'values': (
+      '1': calc(var(--container) * 0.0833),
+      '2': calc(var(--container) * 0.1666),
+      '3': calc(var(--container) * 0.25),
+      '4': calc(var(--container) * 0.3333),
+      '5': calc(var(--container) * 0.4166),
+      '6': calc(var(--container) * 0.5),
+      '7': calc(var(--container) * 0.5833),
+      '8': calc(var(--container) * 0.6666),
+      '9': calc(var(--container) * 0.75),
+      '10': calc(var(--container) * 0.8333),
+      '11': calc(var(--container) * 0.9166),
+      '12': calc(var(--container) * 1),
+    ),
+  ),
+);
+
+@each $property, $map in $columns-max {
+  $values: map-get($map, 'values');
+
+  @each $k, $v in $values {
+    [class*='clm'][class*='fx_#{$k}'] {
+      #{$property}: $v;
+      width: 100%;
+      max-width: $v;
+      flex-grow: 1;
+      flex-shrink: 1;
+    }
+  }
+}

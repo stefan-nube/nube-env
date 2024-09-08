@@ -1,0 +1,170 @@
+@use 'variables' as v;
+
+@mixin generate-padding-values($prefix, $property) {
+  @each $k, $v in v.$size {
+    [class*='#{$prefix}#{$k}'] {
+      #{$property}: $v;
+    }
+  }
+}
+
+$spacing: (
+  'padding': (
+    'prefix': 'p',
+    'property': 'padding',
+  ),
+  'padding-top': (
+    'prefix': 'pt',
+    'property': 'padding-top',
+  ),
+  'padding-right': (
+    'prefix': 'pr',
+    'property': 'padding-right',
+  ),
+  'padding-bottom': (
+    'prefix': 'pb',
+    'property': 'padding-bottom',
+  ),
+  'padding-left': (
+    'prefix': 'pl',
+    'property': 'padding-left',
+  ),
+  'padding-inline': (
+    'prefix': 'ph',
+    'property': 'padding-inline',
+  ),
+  'padding-block': (
+    'prefix': 'pv',
+    'property': 'padding-block',
+  ),
+);
+
+@each $property, $map in $spacing {
+  $prefix: map-get($map, 'prefix');
+  $property: map-get($map, 'property');
+
+  @include generate-padding-values($prefix, $property);
+}
+
+@each $key, $val in v.$size {
+  [class*='fg#{$key}'] {
+    grid-column-gap: $val;
+    grid-row-gap: $val;
+    display: flex;
+  }
+}
+
+@mixin generate-margin-values($prefix, $property) {
+  @each $k, $v in v.$size {
+    [class*='#{$prefix}#{$k}'] {
+      #{$property}: $v;
+    }
+  }
+}
+
+$spacing: (
+  'padding': (
+    'prefix': 'm',
+    'property': 'margin',
+  ),
+  'padding-top': (
+    'prefix': 'mt',
+    'property': 'margin-top',
+  ),
+  'padding-right': (
+    'prefix': 'mr',
+    'property': 'margin-right',
+  ),
+  'padding-bottom': (
+    'prefix': 'mb',
+    'property': 'margin-bottom',
+  ),
+  'padding-left': (
+    'prefix': 'ml',
+    'property': 'margin-left',
+  ),
+  'padding-inline': (
+    'prefix': 'mh',
+    'property': 'margin-inline',
+  ),
+  'padding-block': (
+    'prefix': 'mv',
+    'property': 'margin-block',
+  ),
+);
+
+@each $property, $map in $spacing {
+  $prefix: map-get($map, 'prefix');
+  $property: map-get($map, 'property');
+
+  @include generate-margin-values($prefix, $property);
+}
+
+$properties-br: (
+  'border-radius': 'br',
+);
+
+@each $property, $prefix in $properties-br {
+  @each $k, $v in v.$size {
+    [class*='#{$prefix}#{$k}'] {
+      #{$property}: $v;
+    }
+  }
+}
+
+@each $property, $prefix in $properties-br {
+  @each $k, $v in v.$size {
+    [class*='#{$prefix}-h#{$k}']:hover {
+      #{$property}: $v;
+    }
+  }
+}
+
+@mixin generate-classes($map) {
+  @each $property, $config in $map {
+    $prefix: map-get($config, 'prefix');
+    $values: map-get($config, 'values');
+
+    @each $k, $v in $values {
+      .#{$prefix}-#{$k} {
+        #{$property}: $v;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .#{$prefix}-#{$k}-#{$k} {
+        #{$property}: $v;
+        width: $v;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
+
+$icons: (
+  'height': (
+    'prefix': 'ico',
+    'values': v.$size,
+  ),
+);
+
+$icons-rel: (
+  'height': (
+    'prefix': 'ico',
+    'values': (
+      'xs': 0.5em,
+      's': 0.75em,
+      'm': 1em,
+      'l': 1.25em,
+      'xl': 1.5em,
+    ),
+  ),
+);
+
+@include generate-classes($icons);
+@include generate-classes($icons-rel);

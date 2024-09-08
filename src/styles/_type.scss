@@ -1,0 +1,95 @@
+@use 'variables' as v;
+
+@each $key, $val in v.$font {
+  [class*='--x#{$key}'] {
+    font-size: $val;
+  }
+}
+
+$txt-properties: (
+  'font-weight': 'tw',
+  'line-height': 'th',
+  'letter-spacing': 'ts',
+  'font-family': 'ff',
+);
+
+$var-map: (
+  'font-weight': 'font-weight',
+  'line-height': 'font-height',
+  'letter-spacing': 'font-spacing',
+  'font-family': 'font-family',
+);
+
+@each $property, $prefix in $txt-properties {
+  $key: map-get($var-map, $property);
+  @for $i from 0 through 9 {
+    [class*='#{$prefix}#{$i}'] {
+      #{$property}: var(--#{$key}--#{$i});
+    }
+  }
+}
+
+// @each $property, $prefix in $txt-properties {
+//   @for $i from 0 through 9 {
+//     [class*="#{$prefix}#{$i}"] {
+//       #{$property}: var(--#{$property}--#{$i});
+//     }
+//   }
+// }
+
+//////////
+
+$transformOptions: (
+  '0': lowercase,
+  '1': capitalize,
+  '2': uppercase,
+);
+
+@each $k, $v in $transformOptions {
+  [class*='tt#{$k}'] {
+    text-transform: $v;
+  }
+}
+
+//////////
+
+$txt-properties: (
+  'text-align': (
+    'prefix': 'ta',
+    'values': (
+      '0': left,
+      '1': center,
+      '2': right,
+      '3': justify,
+      '4': start,
+      '5': end,
+    ),
+  ),
+);
+
+@mixin responsive-classes($breakpoint-prefix: 'xs') {
+  @each $property, $map in $txt-properties {
+    $prefix: map-get($map, 'prefix');
+    $values: map-get($map, 'values');
+
+    @each $k, $v in $values {
+      [class*='#{$breakpoint-prefix}_#{$prefix}#{$k}'] {
+        #{$property}: $v;
+      }
+    }
+  }
+}
+
+@include responsive-classes('xs');
+
+@media (min-width: map-get(v.$breakpoints, 'm')) {
+  @include responsive-classes('sm');
+}
+
+@media (min-width: map-get(v.$breakpoints, 'ml')) {
+  @include responsive-classes('md');
+}
+
+@media (min-width: map-get(v.$breakpoints, 't')) {
+  @include responsive-classes('lg');
+}

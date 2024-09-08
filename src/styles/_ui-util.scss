@@ -1,0 +1,62 @@
+@use 'variables' as v;
+
+@mixin generate-classes($map) {
+  @each $property, $config in $map {
+    $prefix: map-get($config, 'prefix');
+    $values: map-get($config, 'values');
+
+    @each $k, $v in $values {
+      .#{$prefix}-#{$k} {
+        #{$property}: $v;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .#{$prefix}-#{$k}-#{$k} {
+        #{$property}: $v;
+        width: $v;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
+
+$icons: (
+  'height': (
+    'prefix': 'ico',
+    'values': (
+      '12': 0.75rem,
+      '16': 1rem,
+      '20': 1.25rem,
+      '24': 1.5rem,
+      '32': 2rem,
+      '40': 2.5rem,
+      '48': 3rem,
+      '56': 3.5rem,
+      '64': 4rem,
+      '72': 4.5rem,
+      '80': 5rem,
+    ),
+  ),
+);
+
+$icons-rel: (
+  'height': (
+    'prefix': 'ico',
+    'values': (
+      'xs': 0.5em,
+      's': 0.75em,
+      'm': 1em,
+      'l': 1.25em,
+      'xl': 1.5em,
+    ),
+  ),
+);
+
+@include generate-classes($icons);
+@include generate-classes($icons-rel);

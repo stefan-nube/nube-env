@@ -1,8 +1,16 @@
 import { defineConfig } from 'vite'
 import eslintPlugin from 'vite-plugin-eslint'
+import path from 'path'
 
 export default defineConfig({
   plugins: [eslintPlugin({ cache: false })],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "./src/styles/_variables.scss";`,
+      },
+    },
+  },
   server: {
     host: 'localhost',
     cors: '*',
@@ -16,12 +24,16 @@ export default defineConfig({
     minify: true,
     manifest: true,
     rollupOptions: {
-      input: './src/main.js',
+      input: {
+        main: './src/main.js',
+        styles: './src/styles/main.scss', // Add your SASS entry point here
+      },
       output: {
         format: 'es',
-        entryFileNames: 'main.js',
+        entryFileNames: '[name].js',
         esModule: true,
         compact: true,
+        assetFileNames: 'assets/[name][extname]',
         globals: {
           jquery: '$',
           gsap: 'gsap',

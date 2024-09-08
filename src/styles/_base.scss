@@ -1,0 +1,44 @@
+* {
+  font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.page {
+  overflow: clip;
+}
+
+html,
+body {
+  overscroll-behavior: none;
+}
+
+.w-richtext > :first-child {
+  margin-top: 0;
+}
+.w-richtext > :last-child,
+.w-richtext ol li:last-child,
+.w-richtext ul li:last-child {
+  margin-bottom: 0;
+}
+
+p,
+label {
+  margin-bottom: 0;
+}
+
+p {
+  line-height: inherit;
+}
+
+a,
+.w-tab-link,
+.w-nav-link,
+.w-dropdown-btn,
+.w-dropdown-toggle,
+.w-dropdown-link,
+.w-nav-brand {
+  color: inherit;
+  text-decoration: inherit;
+  font-size: inherit;
+}

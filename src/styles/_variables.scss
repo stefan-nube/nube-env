@@ -1,0 +1,56 @@
+// breakpoints
+$breakpoints: (
+  'm': 480px,
+  'ml': 768px,
+  't': 992px,
+);
+
+// sizes
+$size: ();
+
+@for $i from 0 through 19 {
+  $size: map-merge(
+    $size,
+    (
+      $i: var(--size--#{$i}),
+    )
+  );
+}
+
+// font sizes
+$font: ();
+
+@for $i from 0 through 19 {
+  $font: map-merge(
+    $font,
+    (
+      $i: var(--font--x#{$i}),
+    )
+  );
+}
+
+// colors
+$colors: ();
+
+@for $i from 0 through 9 {
+  @for $j from 0 through 9 {
+    $colors: map-merge(
+      $colors,
+      (
+        '#{$i}-#{$j}': var(--color--#{$i}-#{$j}),
+      )
+    );
+  }
+}
+
+// color specials
+$specials: ();
+
+@for $i from 0 through 9 {
+  @for $j from 0 through 9 {
+    $specials: map-merge(
+      $specials,
+      ('#{$i}-#{'0' + $j}': var(--specials--#{$i}-#{'0' + $j}))
+    );
+  }
+}
