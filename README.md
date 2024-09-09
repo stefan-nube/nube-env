@@ -10,7 +10,7 @@ All the files are to be delivered trough Netlify, more on the deployment process
 
 ---
 
-First action upon every project, install all dependecies:
+First action upon every project, install all dependencies:
 
 ```jsx
 npm install
