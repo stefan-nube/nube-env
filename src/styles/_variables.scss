@@ -5,33 +5,11 @@ $breakpoints: (
   't': 992px,
 );
 
-// sizes
-$size: ();
-
-@for $i from 0 through 19 {
-  $size: map-merge(
-    $size,
-    (
-      $i: var(--size--#{$i}),
-    )
-  );
-}
-
-// font sizes
-$font: ();
-
-@for $i from 0 through 19 {
-  $font: map-merge(
-    $font,
-    (
-      $i: var(--font--x#{$i}),
-    )
-  );
-}
-
 // colors
 $colors: ();
 
+// Based on the needed number of colors update first "9"
+// Based on the needed number of shades update second "9"
 @for $i from 0 through 9 {
   @for $j from 0 through 9 {
     $colors: map-merge(
@@ -46,6 +24,8 @@ $colors: ();
 // color specials
 $specials: ();
 
+// Based on the needed number of colors update first "5"
+// Based on the needed number of shades update second "5"
 @for $i from 0 through 9 {
   @for $j from 0 through 9 {
     $specials: map-merge(
@@ -53,4 +33,30 @@ $specials: ();
       ('#{$i}-#{'0' + $j}': var(--specials--#{$i}-#{'0' + $j}))
     );
   }
+}
+
+// sizes
+$size: ();
+
+// Based on the number of sizes needed update "10"
+@for $i from 0 through 10 {
+  $size: map-merge(
+    $size,
+    (
+      $i: var(--size--#{$i}),
+    )
+  );
+}
+
+// font sizes
+$font-size: ();
+
+// Based on the number of font sizes needed update "10"
+@for $i from 0 through 10 {
+  $font: map-merge(
+    $font,
+    (
+      $i: var(--font-size--x#{$i}),
+    )
+  );
 }

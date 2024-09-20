@@ -1,6 +1,6 @@
 @use 'variables' as v;
 
-@each $key, $val in v.$font {
+@each $key, $val in v.$font-size {
   [class*='--x#{$key}'] {
     font-size: $val;
   }
@@ -22,22 +22,12 @@ $var-map: (
 
 @each $property, $prefix in $txt-properties {
   $key: map-get($var-map, $property);
-  @for $i from 0 through 9 {
+  @for $i from 0 through 5 {
     [class*='#{$prefix}#{$i}'] {
       #{$property}: var(--#{$key}--#{$i});
     }
   }
 }
-
-// @each $property, $prefix in $txt-properties {
-//   @for $i from 0 through 9 {
-//     [class*="#{$prefix}#{$i}"] {
-//       #{$property}: var(--#{$property}--#{$i});
-//     }
-//   }
-// }
-
-//////////
 
 $transformOptions: (
   '0': lowercase,
@@ -50,8 +40,6 @@ $transformOptions: (
     text-transform: $v;
   }
 }
-
-//////////
 
 $txt-properties: (
   'text-align': (
