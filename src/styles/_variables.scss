@@ -53,8 +53,8 @@ $font-size: ();
 
 // Based on the number of font sizes needed update "10"
 @for $i from 0 through 10 {
-  $font: map-merge(
-    $font,
+  $font-size: map-merge(
+    $font-size,
     (
       $i: var(--font-size--x#{$i}),
     )

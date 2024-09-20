@@ -119,8 +119,8 @@ $properties-br: (
     }
   }
 }
-
-@mixin generate-classes($map) {
+/*added letter "s"*/
+@mixin generate-classess($map) {
   @each $property, $config in $map {
     $prefix: map-get($config, 'prefix');
     $values: map-get($config, 'values');
@@ -145,7 +145,7 @@ $properties-br: (
     }
   }
 }
-
+/*
 $icons: (
   'height': (
     'prefix': 'ico',
@@ -168,3 +168,4 @@ $icons-rel: (
 
 @include generate-classes($icons);
 @include generate-classes($icons-rel);
+*/

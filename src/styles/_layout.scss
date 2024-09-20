@@ -27,6 +27,12 @@
   grid-row-gap: var(--grid--row-gap);
   padding-inline: 0;
 }
+[class*='clm']:has([class*='clm']) {
+  display: flex;
+  flex-wrap: wrap;
+  grid-row-gap: var(--grid--row-gap);
+  padding-inline: 0;
+}
 
 section:has(.cnt) {
   display: flex;
